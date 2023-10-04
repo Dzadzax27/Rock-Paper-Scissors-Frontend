@@ -5,7 +5,8 @@ import Registration from './Components/Registration'
 import Login from './Components/Login'
 import Game from './Components/Game'
 import StartGame from './Components/StartGame';
-import gameInProgress from './Components/gameInProgress';
+import GameInProgress from './Components/gameInProgress';
+import JoinGame from './Components/JoinGame';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -34,7 +35,11 @@ const router = createBrowserRouter([
 },
   {
     path:"gameInProgress",
-    element:<gameInProgress/>
+    element:<GameInProgress/>
+  },
+  {
+    path:"joingame",
+    element:<JoinGame/>
   }])
   ReactDOM.createRoot(document.getElementById('root')).render(
     <RouterProvider router={router} />

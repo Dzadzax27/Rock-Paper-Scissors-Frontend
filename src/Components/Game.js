@@ -11,6 +11,9 @@ function Game(){
     const navigateToGame = () => {
         navigate("/startgame");
       };
+      const navigateToJoin = () => {
+        navigate("/joingame");
+      };
       const asyncFn = async () => {  
         const token = localStorage.getItem("token");
         const data = localStorage.getItem("user");
@@ -35,7 +38,7 @@ function Game(){
         asyncFn();
     }, []);
     return <div><div className='gameButtons'><h2>Welcome to game</h2><Button onClick={navigateToGame} className='btnStart'>Start game</Button>
-   <Button className='btnJoin'>Join game</Button>
+   <Button onClick={navigateToJoin} className='btnJoin'>Join game</Button>
     <Button className='btnMe'>About me</Button>
     <Button className='btnRules'>About game</Button></div></div>
 }
