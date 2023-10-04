@@ -23,8 +23,7 @@ function StartGame() {
         
       });
       const Game = await response.json();
-      await localStorage.setItem("game", Game);
-      await navigate("/gameInProgress");
+      await navigate("/gameInProgress",{state:Game});
     } catch (error) {
       console.error("Registration error:", error);
     }
