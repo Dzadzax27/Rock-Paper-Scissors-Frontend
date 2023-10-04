@@ -1,0 +1,69 @@
+body{
+    background-color: lightgray;
+}
+.main{
+    margin-top: 200px;
+}
+h1{
+    text-align: center;
+}
+.Buttons{
+   margin-left:850px;
+}
+.RegisterButton{
+    margin-left: 10px;
+}
+button:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.Informations{
+    margin-left: 37%;
+}
+input{
+    left: 10px;
+}
+.btnRegister{
+    margin-top: 5px;
+    position:relative;
+    width:350px;
+}
+.registration{
+    margin-top: 200px;
+}
+.btnLogin
+{
+    margin-top: 5px;
+    position:relative;
+    width:350px;
+}
+.Informations
+{
+    margin-left: 40%;
+}
+.loginDiv{
+    margin-top: 200px;
+}
+.gameButtons
+{
+    display: flex;
+    margin:auto;
+    flex-direction: column;
+    padding-top: 10%;
+    width: 40%;
+}
+.btnStart,.btnJoin,.btnMe,.btnRules{
+    margin:15px;
+    height: 54px;
+    font:50px;
+}
+.createGame{
+    margin-left: 40%;
+    margin-top:20px;
+}
+.haboutGame{
+    margin-top:200px;
+}
+.createButton{
+    margin:15px;
+    width:300px;
+}
