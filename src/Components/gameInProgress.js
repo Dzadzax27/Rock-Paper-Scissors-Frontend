@@ -13,7 +13,17 @@ function GameInProgress(){
     return (
         <div>
           <h1>Game id {location.state.id}</h1>
-          
+          <div className='firstPlayerMove'>
+          <Button>Rock</Button>
+          <Button>Paper</Button>
+          <Button>Scissors</Button>
+          </div>
+          <hr></hr>
+          <div className='secondPlayerMove'>
+          <Button>Rock</Button>
+          <Button>Paper</Button>
+          <Button>Scissors</Button>
+          </div>
         </div>
       );
 }

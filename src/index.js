@@ -41,6 +41,7 @@ const router = createBrowserRouter([
     path:"joingame",
     element:<JoinGame/>
   }])
+  
   ReactDOM.createRoot(document.getElementById('root')).render(
     <RouterProvider router={router} />
   )

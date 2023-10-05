@@ -8,15 +8,16 @@ function Game(){
     const navigate = useNavigate();
     const [token, setToken] = useState("");
     const [userData, setUserData] = useState({});
+    const data = localStorage.getItem("user");
     const navigateToGame = () => {
         navigate("/startgame");
       };
       const navigateToJoin = () => {
-        navigate("/joingame");
+        navigate("/joingame",{state:data});
       };
       const asyncFn = async () => {  
         const token = localStorage.getItem("token");
-        const data = localStorage.getItem("user");
+        
         await setToken(token);
         await console.log(token);
         if (token != null) {

@@ -33,11 +33,10 @@ function Login(){
           }
           
           const data = await response.json();
-          console.log(data);
           if(data.success===true)
           {
             console.log(data);
-            await localStorage.setItem("user", data);
+            await localStorage.setItem("user", data.user.id);
             await localStorage.setItem("token", data.token);
             await setError(false);
             await navigateToGame();
