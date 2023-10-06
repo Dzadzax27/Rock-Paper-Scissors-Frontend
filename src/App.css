@@ -77,12 +77,12 @@ input{
 }
 .firstPlayerMove
 {
-    margin-left: 50%;
+    margin-left: 45%;
     margin-top:200px;
     margin-bottom:100px;
 }
 .secondPlayerMove
 {
     margin-top:100px;
-    margin-left: 50%;
+    margin-left: 45%;
 }
