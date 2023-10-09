@@ -21,30 +21,23 @@ function StartGame() {
   const [showWinner, setShowWinner] = useState(false);
   const [showPick1, setShowPick1] = useState(false);
   const [pick1, setPick1] = useState("");
-  const[pick2,setPick2]=useState("");
+  const [pick2, setPick2] = useState("");
   const [winner, setWinner] = useState(false);
   const userID = localStorage.getItem("user");
+  const [disabled, setDisabled] = useState(false);
+  const [disabledSecond, setDisabledSecond] = useState(true);
   const [isCreator, setIsCreator] = useState(false);
 
   const socket = io.connect("http://localhost:3001", {
     query: { token },
   });
-  socket.on("connect", () => {
-    console.log("Socket connected:", socket.id);
-  });
 
-  socket.on("connect_error", (error) => {
-    console.error("Socket connection error:", error);
-  });
   useEffect(() => {
-  socket.on("player2Joined", (data) => {
-  });
-  socket.on("choice", (data) => {
-    setShowResult(true);
-  });
-  socket.on(
-    "startGame",
-    (data) => {
+    socket.on("player2Joined", (data) => {});
+    socket.on("choice", (data) => {
+      setShowResult(true);
+    });
+    socket.on("startGame", (data) => {
       try {
         setShowCreate(false);
         setShowGameElements(true);
@@ -56,61 +49,62 @@ function StartGame() {
       return () => {
         socket.off("startGame");
       };
-    }
-    
-  )
-  socket.on("endGame",(data)=>{
+    });
+    socket.on("endGame", (data) => {
       setWinner(data.winner);
       setShowWinner(true);
-  });
-  socket.on("pick 1 choosed",(data)=>{
+      setDisabledSecond(true);
+    });
+    socket.on("pick 1 choosed", (data) => {
       setPick1(data.pick1);
-  });
-  socket.on("pickSent",(data)=>{
-    setShowPick1(true);
+      setDisabled(true);
+      setDisabledSecond(false);
+    });
+    socket.on("pickSent", (data) => {
+      setShowPick1(true);
       setPick1(data.pick1);
       setPick2(data.pick2);
-      console.log(pick1,pick2,roomID);
-      socket.emit("pick",{pick1:pick1,pick2:pick2,id:roomID})
-});
-  },[socket]);
-
-const cleanPage = () => {
-  setShowCreate(false);
-  setShowGameElements(true);
-};
-
-const add = async () => {
-  try {
-    const token = localStorage.getItem("token");
-    await setToken(token);
-    const data = localStorage.getItem("user");
-    const response = await fetch(`http://localhost:3001/game/add`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: "Bearer " + token,
-      },
-      body: JSON.stringify({ name: nameGame, user: data }),
+      console.log(pick1, pick2, roomID);
+      socket.emit("pick", { pick1: pick1, pick2: pick2, id: roomID });
     });
-    const Game = await response.json();
-    setGame(Game);
-    console.log("Game", Game);
-    socket.emit("createGame", { game: Game }, (acknowledgment) => {
-      if (acknowledgment) {
-        console.log('Event "createGame" was acknowledged on the server.');
-      } else {
-        console.error(
-          'Event "createGame" was not acknowledged on the server.'
-        );
-      }
-    });
-    setRoomID(Game.id);
-    cleanPage();
-  } catch (error) {
-    console.error("Registration error:", error);
-  }
-}
+  }, [socket]);
+
+  const cleanPage = () => {
+    setShowCreate(false);
+    setShowGameElements(true);
+  };
+
+  const add = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await setToken(token);
+      const data = localStorage.getItem("user");
+      const response = await fetch(`http://localhost:3001/game/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({ name: nameGame, user: data }),
+      });
+      const Game = await response.json();
+      setGame(Game);
+      console.log("Game", Game);
+      socket.emit("createGame", { game: Game }, (acknowledgment) => {
+        if (acknowledgment) {
+          console.log('Event "createGame" was acknowledged on the server.');
+        } else {
+          console.error(
+            'Event "createGame" was not acknowledged on the server.'
+          );
+        }
+      });
+      setRoomID(Game.id);
+      cleanPage();
+    } catch (error) {
+      console.error("Registration error:", error);
+    }
+  };
   const asyncFn = async () => {
     const token = localStorage.getItem("token");
     const data = localStorage.getItem("user");
@@ -131,12 +125,13 @@ const add = async () => {
   };
   const sendChoice = () => {
     console.log("choice 1 sent");
-    socket.emit("pick1", { pick1: firstMove,roomID:roomID });
+
+    socket.emit("pick1", { pick1: firstMove, roomID: roomID });
   };
   const sendChoice2 = () => {
     setPick2(secondMove);
-    console.log(pick1,pick2);
-    socket.emit("pick2", { pick1:pick1,pick2: pick2,roomID:roomID });
+    console.log(pick1, pick2, roomID);
+    socket.emit("pick2", { pick1: pick1, pick2: pick2, roomID: roomID });
   };
   const joinGame = () => {
     console.log("join;", userID, roomID);
@@ -144,10 +139,9 @@ const add = async () => {
       player: userID,
       roomID: roomID,
     });
-    console.log(socket)
+    console.log(socket);
   };
 
-  
   useEffect(() => {
     asyncFn();
   }, []);
@@ -158,18 +152,42 @@ const add = async () => {
         <div>
           <h1>Game id {roomID}</h1>
           <div className="firstPlayerMove">
-            <Button onClick={() => setFirstMove("Rock")}>Rock</Button>
-            <Button onClick={() => setFirstMove("Paper")}>Paper</Button>
-            <Button onClick={() => setFirstMove("Scissors")}>Scissors</Button>
+            <Button onClick={() => setFirstMove("Rock")} disabled={disabled}>
+              Rock
+            </Button>
+            <Button onClick={() => setFirstMove("Paper")} disabled={disabled}>
+              Paper
+            </Button>
+            <Button
+              onClick={() => setFirstMove("Scissors")}
+              disabled={disabled}
+            >
+              Scissors
+            </Button>
             <br></br>
             <Button onClick={sendChoice}>Send</Button>
             {showResult && <div>You choose {firstMove}</div>}
           </div>
           <hr></hr>
           <div className="secondPlayerMove">
-            <Button onClick={() => setSecondMove("Rock")}>Rock</Button>
-            <Button onClick={() => setSecondMove("Paper")}>Paper</Button>
-            <Button onClick={() => setSecondMove("Scissors")}>Scissors</Button>
+            <Button
+              onClick={() => setSecondMove("Rock")}
+              disabled={disabledSecond}
+            >
+              Rock
+            </Button>
+            <Button
+              onClick={() => setSecondMove("Paper")}
+              disabled={disabledSecond}
+            >
+              Paper
+            </Button>
+            <Button
+              onClick={() => setSecondMove("Scissors")}
+              disabled={disabledSecond}
+            >
+              Scissors
+            </Button>
           </div>
           <Button onClick={sendChoice2}>Send</Button>
           <div> {showPlayer2 && <div>player2 joined</div>}</div>
@@ -201,7 +219,11 @@ const add = async () => {
           </div>
         </>
       )}
-      {showPick1 && <div>pick1 is {pick1} and pick2 is {pick2}</div>}
+      {showPick1 && (
+        <div>
+          pick1 is {pick1} and pick2 is {pick2}
+        </div>
+      )}
       {showWinner && <div>Winner is {winner}</div>}
     </div>
   );
