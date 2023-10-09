@@ -57,7 +57,7 @@ input{
     font:50px;
 }
 .createGame{
-    margin-left: 40%;
+    margin-left: 20%;
     margin-top:20px;
 }
 .haboutGame{
@@ -68,7 +68,7 @@ input{
     width:300px;
 }
 .join{
-    margin-left: 40%;
+    margin-left: 20%;
     margin-top: 20%;
 }
 .btnJoin{

@@ -54,6 +54,7 @@ function StartGame() {
       setWinner(data.winner);
       setShowWinner(true);
       setDisabledSecond(true);
+      socket.emit("gameFinished",{winner:data.winner,roomID:roomID})
     });
     socket.on("pick 1 choosed", (data) => {
       setPick1(data.pick1);
@@ -117,9 +118,21 @@ function StartGame() {
           .then((res) => res.json())
           .then((data) => setUserData(data));
       } catch (error) {
+        const response = await fetch(`http://localhost:3001/game/delete`, {
+          method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ gameId:roomID }),})
         navigate("/login");
       }
     } else {
+      const response = await fetch(`http://localhost:3001/game/delete`, {
+          method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ gameId:roomID }),})
       navigate("/login");
     }
   };
@@ -129,9 +142,8 @@ function StartGame() {
     socket.emit("pick1", { pick1: firstMove, roomID: roomID });
   };
   const sendChoice2 = () => {
-    setPick2(secondMove);
-    console.log(pick1, pick2, roomID);
-    socket.emit("pick2", { pick1: pick1, pick2: pick2, roomID: roomID });
+    console.log(pick1, secondMove, roomID);
+    socket.emit("pick2", { pick1: pick1, pick2: secondMove, roomID: roomID });
   };
   const joinGame = () => {
     console.log("join;", userID, roomID);
@@ -139,6 +151,7 @@ function StartGame() {
       player: userID,
       roomID: roomID,
     });
+    setRoomID(roomID);
     console.log(socket);
   };
 
