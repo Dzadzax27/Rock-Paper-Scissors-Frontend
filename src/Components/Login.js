@@ -88,8 +88,8 @@ function Login(){
  }
     return <div><div className='loginDiv'><h1>Login</h1>
     <div className='Informations'>
-    <lable>email: </lable><input onChange={(e)=>setUsernameReg(e.target.value)}></input><br></br>
-    <lable>password: </lable><input type={type} onChange={(e)=>setPasswordReg(e.target.value)}></input><span class="flex justify-around items-center" onClick={handleToggle}>
+    <lable>email: </lable><br></br><input onChange={(e)=>setUsernameReg(e.target.value)}></input><br></br>
+    <lable>password: </lable><br></br><input type={type} onChange={(e)=>setPasswordReg(e.target.value)}></input><span class="flex justify-around items-center" onClick={handleToggle}>
                   <Icon class="absolute mr-10" icon={icon} size={25}/>
               </span>
     <br></br>

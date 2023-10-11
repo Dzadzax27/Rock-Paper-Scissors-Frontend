@@ -5,6 +5,7 @@ function Registration() {
     const [usernameReg,setUsernameReg]=useState('');
     const [passwordReg,setPasswordReg]=useState('');
     const [error, setError] = useState(false);
+    const [errorPassword, setErrorPassword] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     let register = async () => {
       {handleSubmit()};
@@ -28,11 +29,22 @@ function Registration() {
       }}
     };
     const handleSubmit = (e) => {
+      const word = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
       if (nameReg === '' || usernameReg === '' || passwordReg === '') {
           setError(true);
-      }else {
-          setSubmitted(true);
+          
+      }
+      else {
+        if(!passwordReg.match(word))
+          {
+              setErrorPassword(true);
+              setError(false);
+    
+          }
+          else
+          {setSubmitted(true);
           setError(false);
+          setErrorPassword(false);}
       }
   };
   const errorMessage = () => {
@@ -47,13 +59,26 @@ function Registration() {
         </div>
     );
   };
+  const errorPasswordMessage = () => {
+    return (
+        <div
+            className="error"
+            style={{
+                display: errorPassword ? '' : 'none',
+                color: 'red',
+            }}>
+            <font>Your password must contain at least 8 characters and at least one letter and at least one number.</font>
+        </div>
+    );
+  };
     return <div><div className='registration'><h1>Registration</h1>
-    <div className='Informations'><lable>name: </lable><input onChange={(e)=>setnameReg(e.target.value)}></input><br></br>
-    <lable>email: </lable><input onChange={(e)=>setUsernameReg(e.target.value)}></input><br></br>
-    <lable>password: </lable><input onChange={(e)=>setPasswordReg(e.target.value)}></input>
+    <div className='Informations'><lable>name: </lable><br></br><input onChange={(e)=>setnameReg(e.target.value)}></input><br></br>
+    <lable>email: </lable><br></br><input onChange={(e)=>setUsernameReg(e.target.value)}></input><br></br>
+    <lable>password: </lable><br></br><input onChange={(e)=>setPasswordReg(e.target.value)}></input>
     <br></br>
     <Button className="btnRegister" onClick={register} >Register</Button><div className="messages">
     {errorMessage()}
+    {errorPasswordMessage()}
 </div>
 </div>
     </div>

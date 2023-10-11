@@ -1,5 +1,5 @@
 body{
-    background-color: lightgray;
+    background-image: url("https://media.istockphoto.com/id/1132703834/vector/game-of-rock-paper-scissors.jpg?s=612x612&w=0&k=20&c=SBXdAzJMXhul_EZM-ss7Fh3SM15UVTam5iTaIBs6fjs=");
 }
 .main{
     margin-top: 200px;
@@ -8,7 +8,25 @@ h1{
     text-align: center;
 }
 .Buttons{
-   margin-left:850px;
+    margin-top:400px;
+   margin-left:700px;
+}
+.LoginButton{
+    padding: 5%;
+    width: 200px;
+}
+.RegisterButton
+{
+    padding: 5%;
+    width: 200px;
+}
+.registration{
+    background-color: white;
+    margin-top: 290px;
+    margin-left: 30%;
+    width:550px;
+    height: 320px;
+    border:1px solid black;
 }
 .RegisterButton{
     margin-left: 10px;
@@ -19,29 +37,31 @@ button:hover{
 .Informations{
     margin-left: 37%;
 }
-input{
-    left: 10px;
-}
 .btnRegister{
-    margin-top: 5px;
+    margin-top: 10px;
     position:relative;
-    width:350px;
-}
-.registration{
-    margin-top: 200px;
+    width:85%;
 }
 .btnLogin
 {
-    margin-top: 5px;
+    margin-top: 10px;
     position:relative;
-    width:350px;
+    width:85%;
 }
 .Informations
 {
-    margin-left: 40%;
+    margin-left: 10%;
 }
 .loginDiv{
-    margin-top: 200px;
+    background-color: white;
+    margin-top: 290px;
+    margin-left: 30%;
+    width:550px;
+    height: 250px;
+    border:1px solid black;
+}
+input{
+    width:85%;
 }
 .gameButtons
 {
@@ -51,38 +71,57 @@ input{
     padding-top: 10%;
     width: 40%;
 }
-.btnStart,.btnJoin,.btnMe,.btnRules{
+.btnStart,.btnMe,.btnRules{
     margin:15px;
     height: 54px;
     font:50px;
 }
-.createGame{
-    margin-left: 20%;
+.createOrJoin{
+    margin-left: 400px;
     margin-top:20px;
+    width:50%;
+    background-color: white;
 }
 .haboutGame{
     margin-top:200px;
 }
 .createButton{
-    margin:15px;
-    width:300px;
+    margin-top:15px;
+    width:85%;
+}
+.createGame{
+    margin-left:150px;
 }
 .join{
-    margin-left: 20%;
-    margin-top: 20%;
+    margin-left:150px;
+    margin-top: 50px;
 }
 .btnJoin{
-    margin:15px;
-    width:300px;
+    margin-top:15px;
+    width:85%;
 }
 .firstPlayerMove
 {
-    margin-left: 45%;
+    margin-left: 40%;
     margin-top:200px;
     margin-bottom:100px;
 }
 .secondPlayerMove
 {
     margin-top:100px;
-    margin-left: 45%;
+    margin-left: 40%;
+}
+.btnRock,.btnPaper,.btnScissors
+{
+    width:100px;
+    height: 100px;
+    margin:10px;
+}
+.paper,.rock,.scissors{
+    width:100%;
+    height: 100%;
+}
+.gameInProgress
+{
+    background-color: white;
 }

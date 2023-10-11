@@ -17,7 +17,7 @@ function StartGame() {
   const [secondMove, setSecondMove] = useState("");
   const [showResult, setShowResult] = useState(false);
   const [showCreate, setShowCreate] = useState(true);
-  const [showLoading, setShowLoading] = useState(false);
+  const [showJoin, setShowJoin] = useState(true);
   const [showWinner, setShowWinner] = useState(false);
   const [showPick1, setShowPick1] = useState(false);
   const [pick1, setPick1] = useState("");
@@ -54,7 +54,8 @@ function StartGame() {
       setWinner(data.winner);
       setShowWinner(true);
       setDisabledSecond(true);
-      socket.emit("gameFinished",{winner:data.winner,roomID:roomID})
+      console.log(winner)
+      socket.emit("gameFinished",{winner: data.winnerid,roomID:roomID})
     });
     socket.on("pick 1 choosed", (data) => {
       setPick1(data.pick1);
@@ -160,66 +161,79 @@ function StartGame() {
   }, []);
 
   return (
-    <div>
+    <div className="gameInProgress">
       {showGameElements && (
-        <div>
+        <div className="startingGame">
           <h1>Game id {roomID}</h1>
           <div className="firstPlayerMove">
-            <Button onClick={() => setFirstMove("Rock")} disabled={disabled}>
-              Rock
+            <Button className="btnRock" onClick={() => setFirstMove("Rock")} disabled={disabled}><img
+            src="https://static.thenounproject.com/png/477914-200.png" className="rock"/>
             </Button>
-            <Button onClick={() => setFirstMove("Paper")} disabled={disabled}>
-              Paper
+            <Button className="btnPaper" onClick={() => setFirstMove("Paper")} disabled={disabled}><img
+            src="https://static.thenounproject.com/png/477912-200.png" className="paper"
+            />
             </Button>
             <Button
+            className="btnScissors"
               onClick={() => setFirstMove("Scissors")}
-              disabled={disabled}
-            >
-              Scissors
+              disabled={disabled}><img
+              src="https://static.thenounproject.com/png/341564-200.png"
+              className="scissors"
+            />
             </Button>
             <br></br>
             <Button onClick={sendChoice}>Send</Button>
             {showResult && <div>You choose {firstMove}</div>}
           </div>
+          {showPick1 && (
+        <div>
+          pick1 is {pick1} and pick2 is {pick2}
+        </div>
+      )}
           <hr></hr>
+      {showWinner && <div>Winner is {winner}</div>}
           <div className="secondPlayerMove">
             <Button
               onClick={() => setSecondMove("Rock")}
-              disabled={disabledSecond}
-            >
-              Rock
+              disabled={disabledSecond} className="btnRock"
+            ><img
+            src="https://static.thenounproject.com/png/477914-200.png" className="rock"/>
             </Button>
             <Button
               onClick={() => setSecondMove("Paper")}
-              disabled={disabledSecond}
-            >
-              Paper
+              disabled={disabledSecond} className="btnPaper"
+            ><img
+            src="https://static.thenounproject.com/png/477912-200.png" className="paper"
+            />
             </Button>
             <Button
               onClick={() => setSecondMove("Scissors")}
-              disabled={disabledSecond}
-            >
-              Scissors
-            </Button>
+              disabled={disabledSecond} className="btnScissors"> 
+              <img
+              src="https://static.thenounproject.com/png/341564-200.png"
+              className="scissors"
+            />
+            </Button><br></br>
+          <Button onClick={sendChoice2} className="btnSend">Send</Button>
           </div>
-          <Button onClick={sendChoice2}>Send</Button>
           <div> {showPlayer2 && <div>player2 joined</div>}</div>
         </div>
       )}{" "}
       {showCreate && (
         <>
-          <div className="createGame">
+          <div className="createOrJoin">
             <h1 className="haboutGame">Create game</h1>
             <div className="createGame">
-              <label>name:</label>
+              <label>name:</label><br></br>
               <input onChange={(e) => setnameGame(e.target.value)}></input>
               <br></br>
               <Button onClick={add} className="createButton">
                 Create game
               </Button>
             </div>
+            <hr className="hrGame"></hr>
             <div className="join">
-              <label>Enter roomID </label>
+              <label>Enter roomID </label><br></br>
               <input
                 onChange={(e) => setRoomID(e.target.value)}
                 value={roomID}
@@ -232,12 +246,7 @@ function StartGame() {
           </div>
         </>
       )}
-      {showPick1 && (
-        <div>
-          pick1 is {pick1} and pick2 is {pick2}
-        </div>
-      )}
-      {showWinner && <div>Winner is {winner}</div>}
+      
     </div>
   );
 }
