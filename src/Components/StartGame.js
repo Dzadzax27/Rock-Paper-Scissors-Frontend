@@ -12,6 +12,7 @@ function StartGame() {
   const [game, setGame] = useState({});
   const [userData, setUserData] = useState({});
   const [showGameElements, setShowGameElements] = useState(false);
+  const [showGameElementsForSecond, setShowGameElementsForSecond] = useState(false);
   const [showPlayer2, setShowPlayer2] = useState(false);
   const [firstMove, setFirstMove] = useState("");
   const [secondMove, setSecondMove] = useState("");
@@ -40,7 +41,7 @@ function StartGame() {
     socket.on("startGame", (data) => {
       try {
         setShowCreate(false);
-        setShowGameElements(true);
+        setShowGameElementsForSecond(true);
         console.log("room", socket.rooms);
       } catch (error) {
         console.error("Error in socket.on startGame:", error);
@@ -54,7 +55,7 @@ function StartGame() {
       setWinner(data.winner);
       setShowWinner(true);
       setDisabledSecond(true);
-      console.log(winner)
+      console.log(winner,data.winnerid)
       socket.emit("gameFinished",{winner: data.winnerid,roomID:roomID})
     });
     socket.on("pick 1 choosed", (data) => {
@@ -184,14 +185,20 @@ function StartGame() {
             <br></br>
             <Button onClick={sendChoice}>Send</Button>
             {showResult && <div>You choose {firstMove}</div>}
-          </div>
+          </div><div className="picksAndWinners">
           {showPick1 && (
         <div>
           pick1 is {pick1} and pick2 is {pick2}
         </div>
       )}
-          <hr></hr>
       {showWinner && <div>Winner is {winner}</div>}
+         </div>
+        </div>
+      )}{" "}
+      {showGameElementsForSecond && (
+        <div className="startingGame">
+          <h1>Game id {roomID}</h1>
+          
           <div className="secondPlayerMove">
             <Button
               onClick={() => setSecondMove("Rock")}
@@ -215,10 +222,16 @@ function StartGame() {
             />
             </Button><br></br>
           <Button onClick={sendChoice2} className="btnSend">Send</Button>
-          </div>
-          <div> {showPlayer2 && <div>player2 joined</div>}</div>
+          </div><div className="picksAndWinners">
+          {showPick1 && (
+        <div>
+          pick1 is {pick1} and pick2 is {pick2}
         </div>
-      )}{" "}
+      )}
+      {showWinner && <div>Winner is {winner}</div>}
+      </div>
+        </div>
+      )}
       {showCreate && (
         <>
           <div className="createOrJoin">

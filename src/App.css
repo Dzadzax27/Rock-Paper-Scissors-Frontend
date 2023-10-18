@@ -8,8 +8,8 @@ h1{
     text-align: center;
 }
 .Buttons{
-    margin-top:400px;
-   margin-left:700px;
+    margin-top:15%;
+   margin-left:35%;
 }
 .LoginButton{
     padding: 5%;
@@ -22,10 +22,10 @@ h1{
 }
 .registration{
     background-color: white;
-    margin-top: 290px;
+    margin-top: 17%;
     margin-left: 30%;
-    width:550px;
-    height: 320px;
+    width:50%;
+    height: 250px;
     border:1px solid black;
 }
 .RegisterButton{
@@ -54,9 +54,9 @@ button:hover{
 }
 .loginDiv{
     background-color: white;
-    margin-top: 290px;
+    margin-top: 17%;
     margin-left: 30%;
-    width:550px;
+    width:50%;
     height: 250px;
     border:1px solid black;
 }
@@ -77,8 +77,8 @@ input{
     font:50px;
 }
 .createOrJoin{
-    margin-left: 400px;
-    margin-top:20px;
+    margin-left: 25%;
+    margin-top:5%;
     width:50%;
     background-color: white;
 }
@@ -102,14 +102,14 @@ input{
 }
 .firstPlayerMove
 {
-    margin-left: 40%;
-    margin-top:200px;
+    margin-left: 35%;
+    margin-top:10%;
     margin-bottom:100px;
 }
 .secondPlayerMove
 {
     margin-top:100px;
-    margin-left: 40%;
+    margin-left: 35%;
 }
 .btnRock,.btnPaper,.btnScissors
 {
@@ -124,4 +124,9 @@ input{
 .gameInProgress
 {
     background-color: white;
+}
+.picksAndWinners
+{
+    margin-left: 35%;
+    color:red;
 }
