@@ -38,8 +38,7 @@ function Game(){
   useEffect(() => {
         asyncFn();
     }, []);
-    return <div><div className='gameButtons'><h2>Welcome to game</h2><Button onClick={navigateToGame} className='btnStart'>Start game</Button>
-   <Button onClick={navigateToJoin} className='btnJoin'>Join game</Button>
+    return <div><div className='gameButtons'><h2>Welcome to game</h2><Button onClick={navigateToGame} className='btnStart'>Start or join game</Button>
     <Button className='btnMe'>About me</Button>
     <Button className='btnRules'>About game</Button></div></div>
 }
