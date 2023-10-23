@@ -7,6 +7,7 @@ function Registration() {
     const [error, setError] = useState(false);
     const [errorPassword, setErrorPassword] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [correct, setCorrect] = useState(false);
     let register = async () => {
       {handleSubmit()};
       if(submitted){
@@ -23,6 +24,7 @@ function Registration() {
           throw new Error('Registration failed');
         }
         const data = await response.json();
+        setCorrect(true);
         console.log('Registration successful:', data);
       } catch (error) {
         console.error('Registration error:', error);
@@ -59,6 +61,17 @@ function Registration() {
         </div>
     );
   };
+  const successMessage = () => {
+    return (
+        <div
+            className="success"
+            style={{
+                display: correct ? '' : 'none',
+                color:'green'
+            }}>
+            <font>User {usernameReg} successfully registered!!</font>
+        </div>
+    );}
   const errorPasswordMessage = () => {
     return (
         <div
