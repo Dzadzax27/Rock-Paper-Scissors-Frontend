@@ -10,6 +10,7 @@ function Login(){
     const [usernameReg,setUsernameReg]=useState('');
     const [passwordReg,setPasswordReg]=useState('');
     const [error, setError] = useState(false);
+    const [errorLogin, setErrorLogin] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [type, setType] = useState('password');
     const [icon, setIcon] = useState(eyeOff);
@@ -28,8 +29,9 @@ function Login(){
             body: JSON.stringify({email: usernameReg, password: passwordReg }),
           });
           
-          if (!response.ok) {
+          if (response.error) {
             throw new Error('Registration failed');
+            setErrorLogin(true);
           }
           
           const data = await response.json();
@@ -42,8 +44,13 @@ function Login(){
             await navigateToGame();
             
           }
+          else if(data.success===false)
+          {
+            setErrorLogin(true);
+          }
         } catch (error) {
           console.error('Registration error:', error);
+          setErrorLogin(true);
         }}
       };
       const handleSubmit = (e) => {
@@ -62,6 +69,18 @@ function Login(){
                   color: 'red',
               }}>
               <font>Please enter all the fields</font>
+          </div>
+      );
+    };
+    const errorLog = () => {
+      return (
+          <div
+              className="error"
+              style={{
+                  display: errorLogin ? '' : 'none',
+                  color: 'red',
+              }}>
+              <font>Password or email is not correct</font>
           </div>
       );
     };
@@ -97,6 +116,7 @@ function Login(){
     </div>
     <div className="messages">
     {errorMessage()}
+    {errorLog()}
 </div>
     </div>
     </div>
